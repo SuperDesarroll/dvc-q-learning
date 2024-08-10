@@ -35,12 +35,13 @@ void setup()
     pinMode(analogPin, INPUT); // Configurar el pin analógico como entrada
     myservo.write(angle);
     lib.println("Servo ready, ubicando en posición inicial");
-    lib.delay(5000);
+    delay(5000);
     lib.println("Starting Q-Learning");
 }
 
 void loop()
 {
+    lib.println("Starting loop");
     int action = qlearning.chooseAction(potentiometerPosition);
     int newPotentiometerPosition = potentiometerPosition;
     // Actualizar la posición del potenciómetro basada en la acción
@@ -55,7 +56,7 @@ void loop()
         angle += angleDelta; // Aumentar el ángulo del servo
     }
     myservo.write(angle); // Mover el servo al nuevo ángulo
-    lib.delay(100);           // Esperar a que el servo se mueva
+    delay(100);           // Esperar a que el servo se mueva
     double voltage = getVoltage();
     double reward = qlearning.getReward(voltage);
     // Actualización de la tabla Q

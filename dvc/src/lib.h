@@ -35,8 +35,4 @@ public:
         Serial.println(str.c_str());
     }
 
-    void delay(int ms)
-    {
-        delay(ms);
-    }
 };
