@@ -35,4 +35,9 @@ public:
         Serial.println(str.c_str());
     }
 
+    // Función para redondear a un decimal
+    double roundToOneDecimal(double value)
+    {
+        return round(value * 10) / 10.0;
+    }
 };

@@ -11,7 +11,7 @@ const int INPUT = 0;      // Modo de entrada
 const int NUM_ACTIONS = 3; // Reducir, mantener, aumentar
 const double LEARNING_RATE = 0.2;
 const double DISCOUNT_FACTOR = 0.8;
-const double VOLTAGE_REWARD = 1.8; // Umbral de voltaje para la recompensa
+const double VOLTAGE_REWARD = 2.0; // Umbral de voltaje para la recompensa
 double EPSILON = 0.0;              // Probabilidad de elegir una acción aleatoria (exploración)
 double angleDelta = 10;            // Cambio en el ángulo del servo
 

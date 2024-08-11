@@ -47,6 +47,7 @@ public:
 
     double getReward(double currentValue)
     {
+        //lib.println("Current value: " + std::to_string(currentValue) + " Value reward: " + std::to_string(valueReward) );        
         return -std::abs(valueReward - currentValue);
     }
 
@@ -66,8 +67,7 @@ public:
                 lib.print(std::to_string(qTable[i][j]) + " ");
             }
             lib.println("");
-        }
-        lib.println("Training finished");
+        }        
     }
 };
 
