@@ -14,6 +14,9 @@ This repository contains the code and hardware documentation for the Q-Learning 
 *   **Voltage Sensor**: Measures the output voltage.
 *   **Display**: Shows the current voltage.
 
+<img width="664" height="1034" alt="image" src="https://github.com/user-attachments/assets/04b48515-958d-4b01-83e1-4454f3f8974d" />
+
+
 ### Connection Description
 
 *   **ESP32**:
