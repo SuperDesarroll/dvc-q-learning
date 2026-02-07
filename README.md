@@ -55,6 +55,9 @@ The system architecture consists of:
 - **Potentiometers**: Used for manual and controlled voltage adjustments.
 - **Q-Learning Algorithm**: Optimizes the control actions based on feedback.
 
+<img width="664" height="1034" alt="image" src="https://github.com/user-attachments/assets/fd9b7fa9-158f-4df3-98c8-b288832301b9" />
+
+
 ## Future Directions
 
 - Explore advanced reinforcement learning algorithms to enhance system performance.
