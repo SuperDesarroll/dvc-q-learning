@@ -1,73 +1,87 @@
-## dvc-q-learning
-El proyecto es un sistema de control de voltaje con un ESP32, un servo y un potenciómetro. Utiliza aprendizaje por refuerzo con una tabla Q para ajustar el ángulo del servo y estabilizar el voltaje en 1.8V. El código lee el voltaje, ajusta el potenciómetro y actualiza la tabla Q según las recompensas obtenidas.
- 
-# Q-Learning for Real-Time Voltage Adjustment with ESP32
+# Autonomous Edge Cybersecurity: LLM-Guided Q-Learning for Resilient Device Control
 
 ## Overview
 
-This project demonstrates the implementation of a Q-learning algorithm for real-time voltage adjustment using the ESP32 microcontroller. The system integrates adaptive control techniques to optimize voltage levels through the manipulation of a servo motor and potentiometers. This approach showcases the practical application of reinforcement learning in embedded systems.
+This project presents a novel approach to Edge Cybersecurity by deploying autonomous Q-learning agents capable of operating in isolation to mitigate cyber-physical attacks. The system features a hierarchical architecture where a **Large Language Model (LLM)** at a superior level acts as a supervisor, defining reward functions and guiding the training process. The edge device, implemented on an **ESP32 microcontroller**, utilizes this pre-trained or periodically updated policy to autonomously detect and correct anomalies—such as voltage instability—even when disconnected from the central network.
+
+This repository contains the source code and documentation for the proof-of-concept implementation that stabilizes voltage against external perturbations simulating cyber-physical attacks.
 
 ## Table of Contents
 
 - [Features](#features)
+- [Hardware Setup](#hardware-setup)
+- [Software Architecture](#software-architecture)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Architecture](#architecture)
-- [Future Directions](#future-directions)
+- [Usage & Attack Simulation](#usage--attack-simulation)
+- [Experimental Results](#experimental-results)
 - [References](#references)
 - [License](#license)
 
 ## Features
 
-- **Real-Time Voltage Control**: Adjusts voltage levels dynamically based on real-time feedback.
-- **Adaptive Learning**: Continuously improves performance through interaction with the environment.
-- **Efficient Resource Utilization**: Leverages the capabilities of the ESP32 microcontroller for optimal performance.
-- **Dynamic Reward System**: Implements a reward mechanism to encourage desired outcomes.
+- **Autonomous Edge Defense**: The Q-learning agent operates locally on the ESP32, detecting and mitigating anomalies without needing continuous external commands.
+- **LLM-Guided Reward Structure**: Uses high-level security policies defined by an LLM (Cloud/Fog layer) to shape the reward function for the local agent.
+- **Resilience in Isolation**: Capable of maintaining system stability (e.g., voltage regulation) even when network connections to the supervisor are severed.
+- **Real-Time Mitigation**: Rapid response to sudden, malicious changes in input voltage (simulated cyber-physical attacks).
+- **Resource-Constrained Optimization**: Lightweight C++ implementation suitable for low-power edge hardware.
+
+## Hardware Setup
+
+The prototype consists of:
+- **ESP32 Microcontroller**: Runs the Q-learning algorithm.
+- **Servo Motor**: Physically adjusts the controlled potentiometer to regulate voltage.
+- **Manual Potentiometer**: Used to introduce external disturbances (simulate attacks).
+- **Servo-Controlled Potentiometer**: The actuator for voltage correction.
+- **Voltage Sensor & Display**: For real-time feedback and monitoring.
+
+*(See `schema01.png` in the `docs` folder for the detailed circuit diagram)*
+
+## Software Architecture
+
+The system follows a hierarchical intelligence model:
+1.  **Superior Layer (LLM with n8n & MCP)**: Analyzes threat intelligence and system logs to define the "Cyber-Defense Policy" (reward function). In this demo, it sets the goal: minimize deviation from 1.8V.
+2.  **Edge Layer (ESP32)**: Executes the Q-learning agent. It interacts with the physical environment, updates its Q-table based on the LLM-defined rewards, and takes actions (Increase, Decrease, or Hold angle) to stabilize the system.
+
+<img width="990" height="710" alt="image" src="https://github.com/user-attachments/assets/114a6641-9a75-4dd2-a8dc-a28d41f82df2" />
+
 
 ## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/q-learning-esp32.git
-   cd q-learning-esp32
-   ```
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/SuperDesarroll/dvc-q-learning.git
+    cd dvc-q-learning
+    ```
 
-2. Install the required libraries for ESP32 development. Ensure you have the Arduino IDE set up for ESP32.
+2.  **Hardware Assembly**: Connect components according to the circuit diagram.
 
-3. Upload the code to your ESP32 board using the Arduino IDE.
+3.  **Firmware Upload**:
+    - Open the project in **PlatformIO** or **Arduino IDE**.
+    - Install necessary libraries (e.g., `ESP32Servo`).
+    - Upload the code to your ESP32 board.
 
-## Usage
+## Usage & Attack Simulation
 
-1. Connect the hardware components as described in the documentation:
-   - Manual Potentiometer
-   - Servo-Controlled Potentiometer
-   - Voltage Sensor
+1.  **Power On**: Start the ESP32. The agent will begin exploring and learning to maintain the target voltage (e.g., 1.8V).
+2.  **Simulate Attack**: Use the *Manual Potentiometer* to drastically change the input voltage. This simulates a physical hack or sensor spoofing attack.
+3.  **Observe Defense**: Watch how the servo motor (controlled by the agent) reacts to counteract the disturbance and restore the voltage to the safe baseline.
+4.  **Isolation Test**: Disconnect the ESP32 from any network/serial command stream. The device should continue to defend itself using the learned Q-table.
 
-2. Open the Arduino IDE and select the appropriate board and port.
+## Experimental Results
 
-3. Upload the code and monitor the output to observe real-time voltage adjustments.
-
-## Architecture
-
-The system architecture consists of:
-- **ESP32 Microcontroller**: Acts as the main control unit.
-- **Servo Motor**: Adjusts the position of the potentiometer to control voltage.
-- **Potentiometers**: Used for manual and controlled voltage adjustments.
-- **Q-Learning Algorithm**: Optimizes the control actions based on feedback.
-
-<img width="664" height="1034" alt="image" src="https://github.com/user-attachments/assets/fd9b7fa9-158f-4df3-98c8-b288832301b9" />
-
-
-## Future Directions
-
-- Explore advanced reinforcement learning algorithms to enhance system performance.
-- Integrate IoT capabilities for remote monitoring and control.
-- Conduct extensive testing in various environmental conditions to ensure robustness.
+The system successfully demonstrates:
+- **Self-Healing**: Returning voltage to 1.8V after significant deviations.
+- **Learned Policy**: The Q-table converges to a robust policy where specific states (voltage errors) map to optimal corrective actions.
+- **Low Latency**: Decision-making occurs in milliseconds, suitable for real-time protection.
 
 ## References
 
-- Murillo García, Dewins. "Harnessing Q-Learning for Real-Time Voltage Adjustment with ESP32: A Demonstration of Adaptive Control and Reinforcement Learning."
-- Watkins, C. J., & Dayan, P. (1992). Q-learning. Machine learning, 8, 279–292.
+This work is part of the research:
+> **Autonomous Edge Cybersecurity: LLM-Guided Q-Learning for Resilient Device Control**  
+> *Dewins Murillo García, Angel Arroyo Puente, Anita Herrera Vaca, Álvaro Herrero Cosio*  
+> Universidad de Burgos (UBU), Spain.
+
+Supported by the **AI4SECIoT project** (INCIBE/NextGenerationEU).
 
 ## License
 
